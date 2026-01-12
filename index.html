@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ஆதார்-வங்கி கணக்கு இணைப்பு சேவை - தாஸ் பொது சேவை மையம்</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Nirmala UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            padding: 15px;
+            line-height: 1.5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1976D2;
+        }
+        
+        .shop-name {
+            color: #1976D2;
+            font-size: 28px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .accreditation {
+            color: #D32F2F;
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .tagline {
+            color: #0D47A1;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196F3;
+            font-size: 14px;
+        }
+        
+        .instructions h3 {
+            color: #0D47A1;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .instructions ul {
+            margin-left: 20px;
+            color: #1565C0;
+        }
+        
+        .instructions li {
+            margin-bottom: 5px;
+        }
+        
+        .form-section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            color: #1976D2;
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #bbdefb;
+            font-weight: 600;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #0D47A1;
+            font-size: 14px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #bbdefb;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        input:focus, select:focus {
+            border-color: #2196F3;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .input-group input {
+            flex: 1;
+        }
+        
+        .verify-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            min-width: 80px;
+            white-space: nowrap;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 25px 0 15px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            flex: 1;
+            min-width: 160px;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .check-btn {
+            background: #2196F3;
+            color: white;
+        }
+        
+        .check-btn:hover {
+            background: #1976D2;
+        }
+        
+        .link-btn {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .link-btn:hover {
+            background: #388E3C;
+        }
+        
+        .receipt-btn {
+            background: #FF9800;
+            color: white;
+        }
+        
+        .receipt-btn:hover {
+            background: #F57C00;
+        }
+        
+        .pdf-btn {
+            background: #F44336;
+            color: white;
+        }
+        
+        .pdf-btn:hover {
+            background: #D32F2F;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffecb5;
+            color: #856404;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        
+        /* இரசீது ஸ்டைல்ஸ் - அச்சிடுவதற்கு ஏற்றது */
+        .receipt {
+            display: none;
+            margin-top: 25px;
+            padding: 0;
+            background: white;
+            border: 1px solid #ccc;
+            page-break-inside: avoid;
+        }
+        
+        .receipt-header {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 2px solid #1976D2;
+        }
+        
+        .receipt-shop-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1976D2;
+            margin-bottom: 5px;
+        }
+        
+        .receipt-accreditation {
+            font-size: 13px;
+            color: #D32F2F;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .receipt-address {
+            font-size: 12px;
+            color: #555;
+            line-height: 1.3;
+            margin-bottom: 3px;
+        }
+        
+        .receipt-phone {
+            font-size: 12px;
+            color: #1976D2;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        
+        .receipt-body {
+            padding: 15px;
+        }
+        
+        .receipt-title {
+            text-align: center;
+            font-size: 18px;
+            color: #1976D2;
+            margin-bottom: 15px;
+            font-weight: 600;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .receipt-details {
+            margin-bottom: 15px;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px dotted #ddd;
+            font-size: 13px;
+        }
+        
+        .detail-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .detail-label {
+            flex: 1;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .detail-value {
+            flex: 2;
+            color: #333;
+            text-align: right;
+        }
+        
+        .status-container {
+            padding: 12px;
+            border-radius: 6px;
+            margin: 15px 0;
+            text-align: center;
+            font-size: 13px;
+        }
+        
+        .status-linked {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .status-not-linked {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .status-processing {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+        
+        .status-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .status-text {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .receipt-footer {
+            text-align: center;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 11px;
+        }
+        
+        .thank-you {
+            font-size: 14px;
+            color: #1976D2;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .masked-text {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        /* அச்சிடும் போது மட்டும் */
+        @media print {
+            body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            .container {
+                max-width: 100% !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            .form-section, .instructions, .button-group, .note,
+            .header, .accreditation, .tagline {
+                display: none !important;
+            }
+            
+            .receipt {
+                display: block !important;
+                margin: 0 !important;
+                border: none !important;
+                page-break-inside: avoid;
+                page-break-after: avoid;
+            }
+            
+            .receipt-header {
+                background: #f8f9fa !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            button {
+                display: none !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+                min-width: auto;
+            }
+            
+            .shop-name {
+                font-size: 22px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="shop-name">தாஸ் பொது சேவை மையம்</div>
+            <div class="accreditation">(மத்திய மாநில அரசு அங்கீகாரம் பெற்ற பொது சேவை மையம்)</div>
+            <div class="tagline">ஆதார்-வங்கிக் கணக்கு இணைப்பு சேவை</div>
+        </div>
+        
+        <div class="instructions">
+            <h3>வழிமுறைகள்:</h3>
+            <ul>
+                <li>ஆதார் எண், பெயர், பிறந்த தேதி, மொபைல் எண் உள்ளிடவும்</li>
+                <li>வங்கி விவரங்களை உள்ளிடவும்</li>
+                <li>"இணைப்பை சரிபார்" பொத்தானை கிளிக் செய்யவும்</li>
+                <li>இணைக்கப்படாதிருந்தால் "இணைப்பை உருவாக்கு" பொத்தானை கிளிக் செய்யவும்</li>
+                <li>இரசீது அச்சிட அல்லது PDF சேமிக்கவும்</li>
+            </ul>
+        </div>
+        
+        <!-- ஆதார் விவரங்கள் -->
+        <div class="form-section">
+            <div class="section-title">தனிப்பட்ட விவரங்கள்</div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>ஆதார் எண்:</label>
+                    <input type="text" id="aadhaar" placeholder="12 இலக்க ஆதார் எண்" maxlength="12">
+                </div>
+                
+                <div class="form-group">
+                    <label>முழு பெயர்:</label>
+                    <input type="text" id="fullName" placeholder="ஆதாரில் உள்ள முழு பெயர்">
+                </div>
+                
+                <div class="form-group">
+                    <label>பிறந்த தேதி:</label>
+                    <input type="date" id="dob">
+                </div>
+                
+                <div class="form-group">
+                    <label>மொபைல் எண்:</label>
+                    <div class="input-group">
+                        <input type="tel" id="mobile" placeholder="10 இலக்க மொபைல் எண்" maxlength="10">
+                        <button class="verify-btn" onclick="sendOTP()">OTP அனுப்பு</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- வங்கி விவரங்கள் -->
+        <div class="form-section">
+            <div class="section-title">வங்கிக் கணக்கு விவரங்கள்</div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>வங்கி பெயர்:</label>
+                    <select id="bankName">
+                        <option value="">வங்கியை தேர்ந்தெடுக்கவும்</option>
+                        <option value="SBI">State Bank of India (SBI)</option>
+                        <option value="IOB">Indian Overseas Bank (IOB)</option>
+                        <option value="CANARA">Canara Bank</option>
+                        <option value="ICICI">ICICI Bank</option>
+                        <option value="HDFC">HDFC Bank</option>
+                        <option value="PNB">Punjab National Bank (PNB)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>கிளை பெயர்:</label>
+                    <input type="text" id="branchName" placeholder="கிளை பெயர்">
+                </div>
+                
+                <div class="form-group">
+                    <label>கணக்கு எண்:</label>
+                    <input type="text" id="accountNumber" placeholder="வங்கிக் கணக்கு எண்">
+                </div>
+                
+                <div class="form-group">
+                    <label>IFSC குறியீடு:</label>
+                    <input type="text" id="ifscCode" placeholder="IFSC குறியீடு">
+                </div>
+                
+                <div class="form-group">
+                    <label>OTP:</label>
+                    <div class="input-group">
+                        <input type="text" id="otp" placeholder="OTP உள்ளிடவும்" maxlength="6">
+                        <button class="verify-btn" onclick="verifyOTP()">OTP சரிபார்</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="button-group">
+            <button class="check-btn" onclick="checkLinkage()">
+                <span>🔍</span> இணைப்பை சரிபார்
+            </button>
+            <button class="link-btn" onclick="linkAccount()" id="linkBtn" disabled>
+                <span>🔗</span> இணைப்பை உருவாக்கு
+            </button>
+            <button class="receipt-btn" onclick="printReceipt()" id="receiptBtn" disabled>
+                <span>🖨️</span> இரசீது அச்சிடு
+            </button>
+        </div>
+        
+        <div class="note">
+            <strong>குறிப்பு:</strong> இது ஒரு மாதிரி பயன்பாடு மட்டுமே. உண்மையான ஆதார்-வங்கி இணைப்பிற்கு அதிகாரப்பூர்வ வங்கி/அஞ்சல் அலுவலகங்களை அணுகவும்.
+        </div>
+        
+        <!-- இரசீது -->
+        <div id="receipt" class="receipt">
+            <div class="receipt-header">
+                <div class="receipt-shop-name">தாஸ் பொது சேவை மையம்</div>
+                <div class="receipt-accreditation">(மத்திய மாநில அரசு அங்கீகாரம் பெற்ற பொது சேவை மையம்)</div>
+                <div class="receipt-address">147எ, கிரேட் காட்டன் ரோடு, மத்திய பாகம் காவல் நிலையம் எதிரில்</div>
+                <div class="receipt-address">தூத்துக்குடி - 628001, தமிழ்நாடு</div>
+                <div class="receipt-phone">செல்: 98 43 23 23 24 / 88 70 23 23 32</div>
+            </div>
+            
+            <div class="receipt-body">
+                <div class="receipt-title">ஆதார்-வங்கிக் கணக்கு இணைப்பு சான்றிதழ்</div>
+                
+                <div class="receipt-details">
+                    <div class="detail-row">
+                        <div class="detail-label">பரிவர்த்தனை எண்:</div>
+                        <div class="detail-value" id="txnId">BA202400000001</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">தேதி:</div>
+                        <div class="detail-value" id="currentDate"></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">நேரம்:</div>
+                        <div class="detail-value" id="currentTime"></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">வாடிக்கையாளர் பெயர்:</div>
+                        <div class="detail-value" id="receiptCustomerName"></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">ஆதார் எண்:</div>
+                        <div class="detail-value" id="receiptAadhaar" class="masked-text"></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">வங்கி பெயர்:</div>
+                        <div class="detail-value" id="receiptBankName"></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">கணக்கு எண்:</div>
+                        <div class="detail-value" id="receiptAccountNo" class="masked-text"></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IFSC குறியீடு:</div>
+                        <div class="detail-value" id="receiptIFSC"></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">கட்டணம்:</div>
+                        <div class="detail-value">₹ 50.00 (GST உட்பட)</div>
+                    </div>
+                </div>
+                
+                <div id="statusDisplay" class="status-container">
+                    <!-- இணைப்பு நிலை -->
+                </div>
+                
+                <div class="receipt-footer">
+                    <div class="thank-you">ஆதார்-வங்கி இணைப்பு சேவை</div>
+                    <div>இந்த சான்றிதழ் கணினி மூலம் உருவாக்கப்பட்டது</div>
+                    <div>செல்லுபடியாகும் காலம்: இணைப்பு நீக்கம் வரை</div>
+                    <div style="margin-top: 5px; font-size: 10px; color: #999;">
+                        பாதுகாப்பு காரணங்களுக்காக சில எண்கள் மறைக்கப்பட்டுள்ளன
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let isOTPVerified = false;
+        let isLinked = false;
+        let otpSent = false;
+        let generatedOTP = '';
+        
+        function updateDateTime() {
+            const now = new Date();
+            const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+            const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: false };
+            
+            const date = now.toLocaleDateString('ta-IN', dateOptions);
+            const time = now.toLocaleTimeString('ta-IN', timeOptions);
+            
+            document.getElementById('currentDate').textContent = date;
+            document.getElementById('currentTime').textContent = time;
+            
+            const txnId = 'BA' + now.getFullYear() + 
+                         String(now.getMonth() + 1).padStart(2, '0') +
+                         String(now.getDate()).padStart(2, '0') +
+                         String(now.getHours()).padStart(2, '0') +
+                         String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('txnId').textContent = txnId;
+        }
+        
+        function maskAadhaar(aadhaar) {
+            if (aadhaar.length !== 12) return aadhaar;
+            const part1 = aadhaar.substring(0, 4);
+            const part2 = 'xxxx';
+            const part3 = aadhaar.substring(8);
+            return part1 + ' ' + part2 + ' ' + part3;
+        }
+        
+        function maskAccountNumber(accountNo) {
+            if (accountNo.length < 9) return accountNo;
+            const visibleDigits = 4;
+            const maskedPart = 'x'.repeat(accountNo.length - visibleDigits * 2);
+            return accountNo.substring(0, visibleDigits) + maskedPart + 
+                   accountNo.substring(accountNo.length - visibleDigits);
+        }
+        
+        function sendOTP() {
+            const mobile = document.getElementById('mobile').value.trim();
+            
+            if (!mobile || mobile.length !== 10 || !/^\d+$/.test(mobile)) {
+                alert('செல்லுபடியாகும் 10-இலக்க மொபைல் எண்ணை உள்ளிடவும்');
+                return;
+            }
+            
+            generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+            
+            setTimeout(() => {
+                alert(`OTP அனுப்பப்பட்டது: ${generatedOTP}\n(டெமோ: உண்மையில் SMS அனுப்பப்படும்)`);
+                otpSent = true;
+            }, 500);
+        }
+        
+        function verifyOTP() {
+            const enteredOTP = document.getElementById('otp').value.trim();
+            
+            if (!otpSent) {
+                alert('முதலில் OTP அனுப்பவும்');
+                return;
+            }
+            
+            if (enteredOTP === generatedOTP) {
+                isOTPVerified = true;
+                alert('OTP சரிபார்ப்பு வெற்றிகரமாக முடிந்தது!');
+                document.getElementById('linkBtn').disabled = false;
+                document.getElementById('linkBtn').style.opacity = '1';
+            } else {
+                alert('தவறான OTP. மீண்டும் முயற்சிக்கவும்');
+                isOTPVerified = false;
+            }
+        }
+        
+        function validateForm() {
+            const aadhaar = document.getElementById('aadhaar').value.trim();
+            const fullName = document.getElementById('fullName').value.trim();
+            const dob = document.getElementById('dob').value;
+            const mobile = document.getElementById('mobile').value.trim();
+            const bankName = document.getElementById('bankName').value;
+            const branchName = document.getElementById('branchName').value.trim();
+            const accountNumber = document.getElementById('accountNumber').value.trim();
+            const ifscCode = document.getElementById('ifscCode').value.trim();
+            
+            if (!aadhaar || aadhaar.length !== 12 || !/^\d+$/.test(aadhaar)) {
+                alert('செல்லுபடியாகும் 12-இலக்க ஆதார் எண்ணை உள்ளிடவும்');
+                return false;
+            }
+            
+            if (!fullName) {
+                alert('முழு பெயரை உள்ளிடவும்');
+                return false;
+            }
+            
+            if (!dob) {
+                alert('பிறந்த தேதியை தேர்ந்தெடுக்கவும்');
+                return false;
+            }
+            
+            if (!mobile || mobile.length !== 10 || !/^\d+$/.test(mobile)) {
+                alert('செல்லுபடியாகும் 10-இலக்க மொபைல் எண்ணை உள்ளிடவும்');
+                return false;
+            }
+            
+            if (!bankName) {
+                alert('வங்கியை தேர்ந்தெடுக்கவும்');
+                return false;
+            }
+            
+            if (!branchName) {
+                alert('கிளை பெயரை உள்ளிடவும்');
+                return false;
+            }
+            
+            if (!accountNumber || accountNumber.length < 9 || accountNumber.length > 18 || !/^\d+$/.test(accountNumber)) {
+                alert('செல்லுபடியாகும் கணக்கு எண்ணை உள்ளிடவும் (9-18 இலக்கங்கள்)');
+                return false;
+            }
+            
+            if (!ifscCode || !/^[A-Z]{4}0[A-Z0-9]{6}$/.test(ifscCode)) {
+                alert('செல்லுபடியாகும் IFSC குறியீட்டை உள்ளிடவும்');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        function checkLinkage() {
+            if (!validateForm()) return;
+            
+            updateDateTime();
+            
+            const receiptAadhaar = document.getElementById('receiptAadhaar');
+            const receiptCustomerName = document.getElementById('receiptCustomerName');
+            const receiptBankName = document.getElementById('receiptBankName');
+            const receiptAccountNo = document.getElementById('receiptAccountNo');
+            const receiptIFSC = document.getElementById('receiptIFSC');
+            
+            const aadhaar = document.getElementById('aadhaar').value.trim();
+            const fullName = document.getElementById('fullName').value.trim();
+            const bankName = document.getElementById('bankName').value;
+            const accountNumber = document.getElementById('accountNumber').value.trim();
+            const ifscCode = document.getElementById('ifscCode').value.trim();
+            const branchSelect = document.getElementById('bankName');
+            
+            const maskedAadhaar = maskAadhaar(aadhaar);
+            const maskedAccountNo = maskAccountNumber(accountNumber);
+            
+            receiptAadhaar.textContent = maskedAadhaar;
+            receiptCustomerName.textContent = fullName;
+            receiptBankName.textContent = branchSelect.options[branchSelect.selectedIndex].text;
+            receiptAccountNo.textContent = maskedAccountNo;
+            receiptIFSC.textContent = ifscCode.toUpperCase();
+            
+            const statusDisplay = document.getElementById('statusDisplay');
+            
+            const isCurrentlyLinked = Math.random() > 0.7;
+            
+            if (isCurrentlyLinked) {
+                statusDisplay.innerHTML = `
+                    <div class="status-icon">✅</div>
+                    <div class="status-text">ஆதார் ஏற்கனவே வங்கிக் கணக்குடன் இணைக்கப்பட்டுள்ளது</div>
+                    <div class="status-message">
+                        இணைப்பு தேதி: ${getRandomPastDate()} | URN: ${Date.now().toString().slice(-8)}
+                    </div>
+                `;
+                statusDisplay.className = 'status-container status-linked';
+                isLinked = true;
+                enableReceiptButtons();
+            } else {
+                statusDisplay.innerHTML = `
+                    <div class="status-icon">❌</div>
+                    <div class="status-text">ஆதார் வங்கிக் கணக்குடன் இணைக்கப்படவில்லை</div>
+                    <div class="status-message">
+                        "இணைப்பை உருவாக்கு" பொத்தானை கிளிக் செய்யவும்
+                    </div>
+                `;
+                statusDisplay.className = 'status-container status-not-linked';
+                isLinked = false;
+                document.getElementById('linkBtn').disabled = !isOTPVerified;
+            }
+            
+            document.getElementById('receipt').style.display = 'block';
+            document.getElementById('receipt').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function linkAccount() {
+            if (!validateForm()) return;
+            
+            if (!isOTPVerified) {
+                alert('முதலில் OPT சரிபார்ப்பை முடிக்கவும்');
+                return;
+            }
+            
+            const statusDisplay = document.getElementById('statusDisplay');
+            
+            statusDisplay.innerHTML = `
+                <div class="status-icon">⏳</div>
+                <div class="status-text">இணைப்பு செயல்பாட்டில் உள்ளது...</div>
+                <div class="status-message">தயவு செய்து காத்திருக்கவும்...</div>
+            `;
+            statusDisplay.className = 'status-container status-processing';
+            
+            setTimeout(() => {
+                statusDisplay.innerHTML = `
+                    <div class="status-icon">✅</div>
+                    <div class="status-text">வெற்றிகரமாக இணைக்கப்பட்டது!</div>
+                    <div class="status-message">
+                        பரிவர்த்தனை ID: BA${Date.now().toString().slice(-10)}<br>
+                        இணைப்பு தேதி: ${new Date().toLocaleDateString('ta-IN')}
+                    </div>
+                `;
+                statusDisplay.className = 'status-container status-linked';
+                
+                isLinked = true;
+                enableReceiptButtons();
+                
+                alert('ஆதார் வெற்றிகரமாக வங்கிக் கணக்குடன் இணைக்கப்பட்டது!');
+                
+                updateDateTime();
+            }, 2000);
+        }
+        
+        function enableReceiptButtons() {
+            document.getElementById('receiptBtn').disabled = false;
+            document.getElementById('receiptBtn').style.opacity = '1';
+        }
+        
+        function printReceipt() {
+            if (!isLinked) {
+                alert('முதலில் ஆதாரை வங்கிக் கணக்குடன் இணைக்கவும்');
+                return;
+            }
+            
+            document.getElementById('receipt').style.display = 'block';
+            
+            setTimeout(() => {
+                window.print();
+            }, 500);
+        }
+        
+        function getRandomPastDate() {
+            const start = new Date(2020, 0, 1);
+            const end = new Date();
+            const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+            return date.toLocaleDateString('ta-IN');
+        }
+        
+        // படிவ சரிபார்ப்புகள்
+        window.onload = function() {
+            updateDateTime();
+            
+            document.getElementById('aadhaar').addEventListener('input', function(e) {
+                this.value = this.value.replace(/\D/g, '');
+                if (this.value.length > 12) {
+                    this.value = this.value.substring(0, 12);
+                }
+            });
+            
+            document.getElementById('mobile').addEventListener('input', function(e) {
+                this.value = this.value.replace(/\D/g, '');
+                if (this.value.length > 10) {
+                    this.value = this.value.substring(0, 10);
+                }
+            });
+            
+            document.getElementById('accountNumber').addEventListener('input', function(e) {
+                this.value = this.value.replace(/\D/g, '');
+            });
+            
+            document.getElementById('ifscCode').addEventListener('input', function(e) {
+                this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+            });
+            
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('dob').setAttribute('max', today);
+        };
+    </script>
+</body>
+</html>
